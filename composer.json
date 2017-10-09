@@ -1,0 +1,30 @@
+{
+    "type": "project",
+    "license": "MIT",
+    "description": "MsgPhp Main development repository",
+    "authors": [
+        {
+            "name": "Roland Franssen",
+            "email": "franssen.roland@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MsgPhp\\": "src/"
+        },
+        "exclude-from-classmap": ["src/**/Tests/"]
+    },
+    "require-dev": {
+        "doctrine/collections": "^1.5",
+        "doctrine/dbal": "^2.6",
+        "doctrine/orm": "^2.5",
+        "phpunit/phpunit": "^6.4",
+        "ramsey/uuid": "^3.7",
+        "simple-bus/message-bus": "^3.0"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        }
+    }
+}
