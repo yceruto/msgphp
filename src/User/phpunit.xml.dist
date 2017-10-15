@@ -15,8 +15,8 @@
     </php>
 
     <testsuites>
-        <testsuite name="msgphp/main">
-            <directory>./src/*/Tests/</directory>
+        <testsuite name="msgphp/user">
+            <directory>./Tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
