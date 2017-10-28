@@ -1,8 +1,8 @@
 {
-    "name": "msgphp/domain",
+    "name": "msgphp/eav",
     "type": "library",
     "license": "MIT",
-    "description": "MsgPhp Base domain layer",
+    "description": "MsgPhp Entity-Attribute-Value domain layer",
     "authors": [
         {
             "name": "Roland Franssen",
@@ -12,18 +12,17 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "MsgPhp\\Domain\\": ""
+            "MsgPhp\\Eav\\": ""
         },
         "exclude-from-classmap": ["/Tests/"]
     },
     "require": {
-        "php": "^7.1.0"
+        "msgphp/domain": "^1.0"
     },
     "require-dev": {
         "doctrine/orm": "^2.5",
         "phpunit/phpunit": "^6.4",
-        "ramsey/uuid": "^3.7",
-        "simple-bus/message-bus": "^3.0"
+        "ramsey/uuid": "^3.7"
     },
     "config": {
         "preferred-install": {

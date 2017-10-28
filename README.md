@@ -7,4 +7,5 @@ Main development repository.
 ## Packages
 
 - [`msgphp/domain`](https://github.com/msgphp/domain)
+- [`msgphp/eav`](https://github.com/msgphp/eav)
 - [`msgphp/user`](https://github.com/msgphp/user)
