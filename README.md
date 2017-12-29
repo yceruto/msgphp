@@ -24,7 +24,7 @@ To first install dependencies:
 bin/composer update
 ```
 
-Each of these scripts will iterate though the subtrees in `src/` and call the
+Each of these scripts will iterate through the subtrees in `src/` and call the
 respective binary, passing all options, e.g.
 
 ```bash
