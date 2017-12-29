@@ -1,1 +1,4 @@
 comment: off
+ignore:
+    - "src/*/Tests/"
+    - "src/{User,Eav}/{Command,Event}/*{Command,Event}.php"
