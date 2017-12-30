@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
 
-DIR=".release"
-mkdir -p $DIR
-pushd $DIR &> /dev/null
+mkdir -p .release
+pushd .release &> /dev/null
 
 echo -e "\e[34mSetup tooling...\e[0m"
-if [[ ! -d .git ]] ; then
+if [[ ! -d bin/.git ]] ; then
     echo "Cloning..."
-    git clone --quiet https://github.com/GawainLynch/git-subtree-sync.git .
+    git clone --quiet https://github.com/GawainLynch/git-subtree-sync.git bin
 fi
 
-git pull
+git -C bin pull
 
 echo -e "\e[34mSynchronizing source...\e[0m"
 if [[ ! -d main/.git ]] ; then
@@ -37,8 +36,8 @@ if [[ ! -f .gitsubtree ]] ; then
 
     cat >.gitsubtree <<EOL
 REMOTE_BASE_URL=git@github.com:msgphp
-MONOLITH_REPO_ROOT=$(realpath main)
-SUBTREE_REPO_ROOT=$(realpath subtrees)
+MONOLITH_REPO_ROOT=\$(realpath main)
+SUBTREE_REPO_ROOT=\$(realpath subtrees)
 PREFIX_DIRS=(
 $PACKAGES)
 EOL
@@ -66,6 +65,6 @@ if [[ $TESTS_OK -eq 0 ]] ; then
     fi
 fi
 
-./git-subtree-sync.sh
+bin/git-subtree-sync.sh
 
 popd &> /dev/null
