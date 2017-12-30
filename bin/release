@@ -52,7 +52,7 @@ if [[ ! $answer =~ ^y|Y|yes|YES$ ]] ; then
 fi
 
 pushd main &> /dev/null
-#bin/composer update --prefer-dist --no-interaction --no-suggest --no-plugins --prefer-stable
+bin/composer update --prefer-dist --no-interaction --no-suggest --no-plugins --prefer-stable
 bin/phpunit
 if [[ $? -eq 0 ]] ; then TESTS_OK=1; else TESTS_OK=0; fi
 popd &> /dev/null
