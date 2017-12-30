@@ -5,23 +5,25 @@ mkdir -p $DIR
 pushd $DIR &> /dev/null
 
 echo -e "\e[34mSetup tooling...\e[0m"
-if [ ! -d .git ]; then
+if [[ ! -d .git ]] ; then
+    echo "Cloning..."
     git clone --quiet https://github.com/GawainLynch/git-subtree-sync.git .
-
 fi
 
 git pull
 
 echo -e "\e[34mSynchronizing source...\e[0m"
-if [ ! -d main/.git ]; then
+if [[ ! -d main/.git ]] ; then
     rm -rf .gitsubtree main subtrees
     mkdir main subtrees
+    echo "Cloning..."
     git clone --quiet https://github.com/msgphp/msgphp.git main
 fi
 
+git -C main fetch --tags
 git -C main pull
 
-if [ ! -f .gitsubtree ]; then
+if [[ ! -f .gitsubtree ]] ; then
     PACKAGES=""
     for PACKAGE_DIR in $(find main/src/*/composer.json -type f) ; do
         PACKAGE_NAME=$(grep -E "^\s*\"name\"\s*:\s*\"msgphp\/([^\"]+)\"\s*,\s*$" $PACKAGE_DIR)
@@ -44,9 +46,24 @@ fi
 
 echo -en "\e[34mAll good! Ready to release? [yN]\e[0m "
 read answer
-if [[ ! $answer =~ ^y|Y|yes|YES$ ]]
-then
+if [[ ! $answer =~ ^y|Y|yes|YES$ ]] ; then
+    echo "Aborted"
     exit 1
+fi
+
+pushd main &> /dev/null
+#bin/composer update --prefer-dist --no-interaction --no-suggest --no-plugins --prefer-stable
+bin/phpunit
+if [[ $? -eq 0 ]] ; then TESTS_OK=1; else TESTS_OK=0; fi
+popd &> /dev/null
+
+if [[ $TESTS_OK -eq 0 ]] ; then
+    echo -en "\e[34mTests failing! Release anyway? [yN]\e[0m "
+    read answer
+    if [[ ! $answer =~ ^y|Y|yes|YES$ ]] ; then
+        echo "Aborted"
+        exit 1
+    fi
 fi
 
 ./git-subtree-sync.sh
