@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace MsgPhp\User\Entity;
 
 use MsgPhp\Domain\Entity\Fields\{CreatedAtField, LastUpdatedAtField};
+use MsgPhp\User\Credential\CredentialAwareInterface;
+use MsgPhp\User\Entity\Credential\EmailPassword;
+use MsgPhp\User\Entity\Fields\CredentialField;
 use MsgPhp\User\UserIdInterface;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-class User
+class User implements CredentialAwareInterface
 {
+    use CredentialField; // @todo + Features/EmailCredential etc.
     use CreatedAtField; // @todo remove
     use LastUpdatedAtField; // @todo remove
 
@@ -28,6 +32,7 @@ class User
         $this->password = $password;
         $this->createdAt = new \DateTimeImmutable();
         $this->lastUpdatedAt = new \DateTimeImmutable();
+        $this->credential = new EmailPassword($this->email, $this->password); // @todo constructor arg + default Anonymous
     }
 
     public function getId(): UserIdInterface

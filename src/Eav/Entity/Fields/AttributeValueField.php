@@ -12,7 +12,6 @@ use MsgPhp\Eav\Entity\{Attribute, AttributeValue};
  */
 trait AttributeValueField
 {
-    /** @var AttributeValue */
     private $attributeValue;
 
     public function getAttributeValue(): AttributeValue
@@ -20,23 +19,23 @@ trait AttributeValueField
         return $this->attributeValue;
     }
 
-    public function getAttributeValueId(): AttributeValueIdInterface
+    final public function getAttributeValueId(): AttributeValueIdInterface
     {
-        return $this->attributeValue->getId();
+        return $this->getAttributeValue()->getId();
     }
 
-    public function getAttribute(): Attribute
+    final public function getAttribute(): Attribute
     {
-        return $this->attributeValue->getAttribute();
+        return $this->getAttributeValue()->getAttribute();
     }
 
-    public function getAttributeId(): AttributeIdInterface
+    final public function getAttributeId(): AttributeIdInterface
     {
-        return $this->attributeValue->getAttributeId();
+        return $this->getAttributeValue()->getAttributeId();
     }
 
-    public function getValue()
+    final public function getValue()
     {
-        return $this->attributeValue->getValue();
+        return $this->getAttributeValue()->getValue();
     }
 }

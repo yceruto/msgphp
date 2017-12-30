@@ -56,7 +56,7 @@ final class Extension extends BaseExtension implements PrependExtensionInterface
     {
         $loader = new PhpFileLoader($container, new FileLocator(dirname(__DIR__).'/Resources/config'));
         $config = $this->processConfiguration($this->getConfiguration($configs, $container), $configs);
-        $bundles = array_flip($container->getParameter('kernel.bundles'));
+        $bundles = ContainerHelper::getBundles($container);
         $classMapping = $config['class_mapping'];
 
         ContainerHelper::configureEntityFactory($container, $classMapping, [
