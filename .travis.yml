@@ -21,7 +21,6 @@ matrix:
     - php: 7.1
       env:
         - DEPS=high
-        - CC=true
         - CS=true
         - SA=true
     - php: 7.2
@@ -30,6 +29,7 @@ matrix:
     - php: 7.2
       env:
         - DEPS=high
+        - CC=true
 
 allow_failures:
 - php:
@@ -38,6 +38,7 @@ allow_failures:
 fast_finish: true
 
 before_script:
+  - if [[ $CC = true ]] ; then phpenv config-rm xdebug.ini ; fi
   - travis_retry composer self-update
 
 before_install:

@@ -4,4 +4,4 @@ ignore:
     - "src/*/Command/*Command.php"
     - "src/*/Event/*Event.php"
     - "src/*/Infra/Doctrine/Type/*Type.php"
-    - "src/Domain/Infra/Bundle/ServiceConfigHelper.php"
+    - "src/Domain/Infra/DependencyInjection/BundleServiceConfigHelper.php"
