@@ -29,8 +29,8 @@ if [[ ! -f .gitsubtree ]] ; then
         if [[ ! -z "$PACKAGE_NAME" ]] ; then
             PACKAGE_NAME=$(echo $PACKAGE_NAME | sed -e "s/^\s*\"name\":\s*\"msgphp\///" -e "s/\"\s*,\s*$//")
             PACKAGE_PATH="src/$(basename $(dirname $PACKAGE_DIR))/"
-            echo -e "\e[34mFound package \"msgphp/$PACKAGE_NAME\" at \"$PACKAGE_PATH\"\e[0m"
-            PACKAGES="$PACKAGES    [\"$PACKAGE_NAME\"]=\"$PACKAGE_PATH\""$'\n'
+            echo -e "\e[34mFound package \"msgphp/${PACKAGE_NAME}\" at \"${PACKAGE_PATH}\"\e[0m"
+            PACKAGES="$PACKAGES    [\"${PACKAGE_NAME}\"]=\"${PACKAGE_PATH}\""$'\n'
         fi
     done
 
@@ -46,12 +46,14 @@ fi
 echo -en "\e[34mAll good! Ready to release? [yN]\e[0m "
 read answer
 if [[ ! $answer =~ ^y|Y|yes|YES$ ]] ; then
-    echo "Aborted"
+    echo "Aborted!"
     exit 1
 fi
 
 pushd main &> /dev/null
-bin/composer update --prefer-dist --no-interaction --no-suggest --no-plugins --prefer-stable
+echo -e "\e[34mSetup environment...\e[0m"
+bin/composer update --prefer-dist --no-interaction --no-suggest --prefer-stable &> /dev/null
+bin/phpunit install &> /dev/null
 bin/phpunit
 if [[ $? -eq 0 ]] ; then TESTS_OK=1; else TESTS_OK=0; fi
 popd &> /dev/null
@@ -60,7 +62,7 @@ if [[ $TESTS_OK -eq 0 ]] ; then
     echo -en "\e[34mTests failing! Release anyway? [yN]\e[0m "
     read answer
     if [[ ! $answer =~ ^y|Y|yes|YES$ ]] ; then
-        echo "Aborted"
+        echo "Aborted!"
         exit 1
     fi
 fi
