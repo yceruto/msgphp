@@ -41,7 +41,7 @@ before_script:
   - travis_retry composer self-update
 
 before_install:
-  - .travis/tfold
+  - source .travis/tfold
 
 install:
   - if [[ ! $DEPS  ]] ; then travis_retry bin/composer install $COMPOSER_ARGS ; fi
