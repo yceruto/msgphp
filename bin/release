@@ -6,7 +6,7 @@ pushd .release &> /dev/null
 echo -e "\e[34mSetup tooling...\e[0m"
 if [[ ! -d bin/.git ]] ; then
     echo "Cloning..."
-    git clone --quiet https://github.com/GawainLynch/git-subtree-sync.git bin
+    git clone --quiet git@github.com:msgphp/git-subtree-sync.git bin
 fi
 
 git -C bin pull
@@ -16,7 +16,7 @@ if [[ ! -d main/.git ]] ; then
     rm -rf .gitsubtree main subtrees
     mkdir main subtrees
     echo "Cloning..."
-    git clone --quiet https://github.com/msgphp/msgphp.git main
+    git clone --quiet git@github.com:msgphp/msgphp.git main
 fi
 
 git -C main fetch --tags
