@@ -1,3 +1,10 @@
 #!/usr/bin/env bash
 
-vendor/bin/php-cs-fixer fix --dry-run --verbose --diff "${@:-src/}"
+CMD="vendor/bin/php-cs-fixer fix --dry-run --verbose --diff ${@:-src/}"
+
+if [[ $TRAVIS = true ]] ; then
+    source .travis/php_no_xdebug
+    CMD="php_no_xdebug ${CMD}"
+fi
+
+$CMD

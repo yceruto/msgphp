@@ -21,6 +21,7 @@ matrix:
     - php: 7.1
       env:
         - DEPS=high
+        - CC=true
         - CS=true
         - SA=true
     - php: 7.2
@@ -29,9 +30,6 @@ matrix:
     - php: 7.2
       env:
         - DEPS=high
-    - php: nightly
-      env:
-        - CC=true
 
 allow_failures:
 - php:
