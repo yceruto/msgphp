@@ -5,6 +5,9 @@ includes:
 
 parameters:
     ignoreErrors:
+        - '#Constructor of class MsgPhp\\Domain\\Tests\\Entity\\KnownTestEntity has an unused parameter \$arg.#'
+        - '#Parameter \$arg of method MsgPhp\\Domain\\Tests\\Entity\\KnownTestEntity::__construct\(\) has invalid typehint type MsgPhp\\Domain\\Tests\\Entity\\UnknownTestEntity.#'
+
         # see https://github.com/symfony/symfony/pull/25644
         - '#Strict comparison using === between null and string will always evaluate to false#'
 
