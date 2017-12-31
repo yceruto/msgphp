@@ -26,7 +26,7 @@ if [[ ! -f .gitsubtree ]] ; then
     PACKAGES=""
     for PACKAGE_DIR in $(find main/src/*/composer.json -type f) ; do
         PACKAGE_NAME=$(grep -E "^\s*\"name\"\s*:\s*\"msgphp\/([^\"]+)\"\s*,\s*$" $PACKAGE_DIR)
-        if ! [ -z "$PACKAGE_NAME" ]; then
+        if [[ ! -z "$PACKAGE_NAME" ]] ; then
             PACKAGE_NAME=$(echo $PACKAGE_NAME | sed -e "s/^\s*\"name\":\s*\"msgphp\///" -e "s/\"\s*,\s*$//")
             PACKAGE_PATH="src/$(basename $(dirname $PACKAGE_DIR))/"
             echo -e "\e[34mFound package \"msgphp/$PACKAGE_NAME\" at \"$PACKAGE_PATH\"\e[0m"
