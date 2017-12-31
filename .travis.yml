@@ -48,7 +48,7 @@ install:
   - if [[ $DEPS = high ]] ; then travis_retry bin/composer update $COMPOSER_ARGS --prefer-stable ; fi
   - if [[ $DEPS = low ]] ; then travis_retry bin/composer update $COMPOSER_ARGS --prefer-stable --prefer-lowest ; fi
   - bin/phpunit install
-  - if [[ $CS = true ]] || [[ $SA = true ]] ; then composer install ; fi
+  - if [[ $CS = true ]] || [[ $SA = true ]] ; then composer install $COMPOSER_ARGS ; fi
 
 script:
   - if [[ ! $CC  ]] ; then bin/phpunit $PHPUNIT_ARGS ; fi
