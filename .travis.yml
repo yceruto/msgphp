@@ -24,7 +24,6 @@ matrix:
         - CC=true
         - CS=true
         - SA=true
-        - RELEASE=true
     - php: 7.2
       env:
         - DEPS=low
