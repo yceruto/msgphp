@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 
-CMD="vendor/bin/php-cs-fixer fix --dry-run --verbose --diff ${@:-src/}"
+BIN="vendor/bin/php-cs-fixer"
+CMD="${BIN} fix --dry-run --verbose --diff ${@:-src/}"
 
 if [[ $TRAVIS = true ]] ; then
     source .travis/php_no_xdebug
     CMD="php_no_xdebug ${CMD}"
+fi
+
+if [[ ! -f $BIN ]] ; then
+    composer update --prefer-dist --no-interaction --no-suggest
 fi
 
 ${CMD}

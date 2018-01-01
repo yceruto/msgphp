@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-bin/composer update --prefer-dist --no-interaction --no-suggest
-bin/phpunit install
-composer install --prefer-dist --no-interaction --no-suggest

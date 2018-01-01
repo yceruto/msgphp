@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ ! $# -eq 1 ]] ; then
+if [[ ! $# = 1 ]] ; then
     echo "Usage: $0 <pr-number>"
     exit 1
 fi
@@ -67,7 +67,7 @@ EOF
     git branch --set-upstream-to ${BRANCH}/${UPSTREAM_BRANCH}
 fi
 
-if [[ ! -z "$(git status --porcelain)" ]] ; then
+if [[ ! -z $(git status --porcelain) ]] ; then
     echo "Current working directory must be clean to continue..."
     exit 1
 fi

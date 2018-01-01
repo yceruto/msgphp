@@ -1,18 +1,11 @@
 # Contributing
 
-## Setup environment
-
-Run the following command to setup your environment first:
-
-```bash
-bin/setup
-```
-
 ## Testing
 
 Run tests for all components:
 
 ```bash
+bin/composer update
 bin/phpunit
 ```
 
@@ -20,6 +13,7 @@ Run tests for a single component, e.g. `Domain`:
 
 ```bash
 cd src/Domain/
+composer update
 vendor/bin/simple-phpunit
 ```
 
