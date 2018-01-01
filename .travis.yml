@@ -24,6 +24,7 @@ matrix:
         - CC=true
         - CS=true
         - SA=true
+        - RELEASE=true
     - php: 7.2
       env:
         - DEPS=low
@@ -58,7 +59,7 @@ script:
 
 after_success:
   - if [[ $CC = true ]] ; then .travis/codecov ; fi
-  - if [[ $TRAVIS_BRANCH = master ]] ; then bin/release $HOME/.releases/$TRAVIS_BRANCH ; fi
+  - if [[ $RELEASE = true ]] && [[ $TRAVIS_BRANCH = master ]] ; then bin/release $HOME/.releases/$TRAVIS_BRANCH ; fi
 
 cache:
   directories:
