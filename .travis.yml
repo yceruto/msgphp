@@ -57,8 +57,10 @@ script:
   - if [[ $SA = true ]] ; then bin/sa ; fi
 
 after_success:
-  - if [[ $CC = true ]] ; then  .travis/codecov ; fi
+  - if [[ $CC = true ]] ; then .travis/codecov ; fi
+  - if [[ $TRAVIS_BRANCH = master ]] ; then bin/release $HOME/.releases/$TRAVIS_BRANCH ; fi
 
 cache:
   directories:
     - $HOME/.composer/cache/files/
+    - $HOME/.releases/

@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
-mkdir -p .release
-pushd .release &> /dev/null
+if [[ $# > 1 ]] ; then
+    echo "Usage: $0 <working-directory>"
+    exit 1
+fi
+
+RELEASE_DIR="${1:-.release/}"
+mkdir -p ${RELEASE_DIR}
+pushd ${RELEASE_DIR} &> /dev/null
 
 echo -e "\e[34mSetup tooling...\e[0m"
 if [[ ! -d bin/.git ]] ; then
@@ -50,20 +56,22 @@ if [[ ! $answer =~ ^y|Y|yes|YES$ ]] ; then
     exit 1
 fi
 
-pushd main &> /dev/null
-echo -e "\e[34mSetup environment...\e[0m"
-bin/composer update --prefer-dist --no-interaction --no-suggest --prefer-stable &> /dev/null
-bin/phpunit install &> /dev/null
-bin/phpunit
-if [[ $? -eq 0 ]] ; then TESTS_OK=1; else TESTS_OK=0; fi
-popd &> /dev/null
+if [[ ! $TRAVIS ]] ; then
+    pushd main &> /dev/null
+    echo -e "\e[34mSetup environment...\e[0m"
+    bin/composer update --prefer-dist --no-interaction --no-suggest --prefer-stable &> /dev/null
+    bin/phpunit install &> /dev/null
+    bin/phpunit
+    if [[ $? = 0 ]] ; then TESTS_OK=1; else TESTS_OK=0; fi
+    popd &> /dev/null
 
-if [[ $TESTS_OK -eq 0 ]] ; then
-    echo -en "\e[34mTests failing! Release anyway? [yN]\e[0m "
-    read answer
-    if [[ ! $answer =~ ^y|Y|yes|YES$ ]] ; then
-        echo "Aborted!"
-        exit 1
+    if [[ $TESTS_OK -eq 0 ]] ; then
+        echo -en "\e[34mTests failing! Release anyway? [yN]\e[0m "
+        read answer
+        if [[ ! $answer =~ ^y|Y|yes|YES$ ]] ; then
+            echo "Aborted!"
+            exit 1
+        fi
     fi
 fi
 
