@@ -24,7 +24,6 @@ matrix:
         - CC=true
         - CS=true
         - SA=true
-        - SUBTREE_SPLIT=true
     - php: 7.2
       env:
         - DEPS=low
@@ -59,9 +58,7 @@ script:
 
 after_success:
   - if [[ $CC = true ]] ; then .travis/codecov ; fi
-  - if [[ $SUBTREE_SPLIT = true ]] && [[ $TRAVIS_BRANCH = master ]] ; then bin/subtree-split $HOME/.subtree-split/ ; fi
 
 cache:
   directories:
     - $HOME/.composer/cache/files/
-    - $HOME/.subtree-split/
