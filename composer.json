@@ -1,11 +1,10 @@
 {
-    "description": "Composer configuration for bulk CI testing of components & bundles",
+    "description": "Composer configuration for bulk CI testing of packages",
     "require-dev": {
+        "wikimedia/composer-merge-plugin": "^1.4",
         "friendsofphp/php-cs-fixer": "^2.9",
-        "phpstan/phpstan": "^0.9",
-        "phpstan/phpstan-phpunit": "^0.9",
-        "phpunit/phpunit": "^6.5",
-        "wikimedia/composer-merge-plugin": "^1.4"
+        "phpstan/phpstan": "^0.9@dev",
+        "phpstan/phpstan-phpunit": "^0.9"
     },
     "autoload-dev": {
         "psr-4": {
