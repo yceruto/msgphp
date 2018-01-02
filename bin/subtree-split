@@ -49,15 +49,6 @@ $PACKAGES)
 EOL
 fi
 
-if [[ ! $TRAVIS ]] ; then
-    echo -en "\e[34mAll good! Ready to split subtrees? [yN]\e[0m "
-    read answer
-    if [[ ! $answer =~ ^y|Y|yes|YES$ ]] ; then
-        echo "Aborted!"
-        exit 1
-    fi
-fi
-
 bin/git-subtree-sync.sh
 
 popd &> /dev/null
