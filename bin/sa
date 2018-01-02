@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 BIN="vendor/bin/phpstan"
-CMD="${BIN} analyse --configuration phpstan.neon --level 7 ${@:-src/}"
+CMD="${BIN} analyse --configuration phpstan.neon --level max ${@:-src/}"
 
 if [[ ! -f $BIN ]] ; then
     composer update --prefer-dist --no-interaction --no-suggest

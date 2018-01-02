@@ -15,7 +15,8 @@ $rules = [
     'single_import_per_statement' => false,
 ];
 
-return Config::create()->setRules($rules)
+return Config::create()
+    ->setRules($rules)
     ->setFinder(Finder::create()->in(__DIR__))
     ->setUsingCache(true)
     ->setRiskyAllowed(true)
