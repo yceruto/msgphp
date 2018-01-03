@@ -16,7 +16,7 @@ use MsgPhp\User\Infra\Doctrine\Repository\{PendingUserRepository, UserAttributeV
 use MsgPhp\User\Infra\Doctrine\SqlEmailLookup;
 use MsgPhp\User\Infra\Doctrine\Type\UserIdType;
 use MsgPhp\User\Infra\Security\NativeBcryptPasswordEncoder;
-use MsgPhp\User\PasswordEncoderInterface;
+use MsgPhp\User\Password\PasswordEncoderInterface;
 use MsgPhp\User\Repository\UserRepositoryInterface;
 use MsgPhp\User\UserIdInterface;
 use Ramsey\Uuid\Uuid;

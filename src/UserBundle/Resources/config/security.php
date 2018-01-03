@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use MsgPhp\User\PasswordEncoderInterface;
+use MsgPhp\User\Password\PasswordEncoderInterface;
 use MsgPhp\User\Infra\Security\{PasswordEncoder, SecurityUser, SecurityUserFactory, SecurityUserProvider};
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface as SymfonyPasswordEncoderInterface;

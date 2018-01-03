@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User;
+namespace MsgPhp\User\Password;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
