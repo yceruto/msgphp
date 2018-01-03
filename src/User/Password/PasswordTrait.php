@@ -10,9 +10,15 @@ namespace MsgPhp\User\Password;
 trait PasswordTrait
 {
     private $password;
+    private $passwordAlgorithm;
 
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function getPasswordAlgorithm(): PasswordAlgorithm
+    {
+        return $this->passwordAlgorithm;
     }
 }

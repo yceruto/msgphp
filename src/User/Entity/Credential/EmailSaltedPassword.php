@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MsgPhp\User\Entity\Credential;
 
 use MsgPhp\User\Credential\{CredentialInterface, EmailCredentialTrait};
-use MsgPhp\User\Password\{SaltedPasswordInterface, SaltedPasswordTrait};
+use MsgPhp\User\Password\{PasswordAlgorithm, PasswordInterface, PasswordTrait};
 
 /**
  * Note one should prefer a saltless password implementation by default, i.e. {@see EmailPassword}. The salted
@@ -13,15 +13,18 @@ use MsgPhp\User\Password\{SaltedPasswordInterface, SaltedPasswordTrait};
  *
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-final class EmailSaltedPassword implements CredentialInterface, SaltedPasswordInterface
+final class EmailSaltedPassword implements CredentialInterface, PasswordInterface
 {
     use EmailCredentialTrait;
-    use SaltedPasswordTrait;
+    use PasswordTrait;
+
+    private $passwordSalt;
 
     public function __construct(string $email, string $password, string $passwordSalt)
     {
         $this->email = $email;
         $this->password = $password;
         $this->passwordSalt = $passwordSalt;
+        $this->passwordAlgorithm = PasswordAlgorithm::createLegacyWithSalt($this->passwordSalt);
     }
 }

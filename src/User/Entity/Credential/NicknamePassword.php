@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MsgPhp\User\Entity\Credential;
 
 use MsgPhp\User\Credential\{CredentialInterface, NicknameCredentialTrait};
-use MsgPhp\User\Password\{PasswordInterface, PasswordTrait};
+use MsgPhp\User\Password\{PasswordAlgorithm, PasswordInterface, PasswordTrait};
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
@@ -19,5 +19,6 @@ final class NicknamePassword implements CredentialInterface, PasswordInterface
     {
         $this->nickname = $nickname;
         $this->password = $password;
+        $this->passwordAlgorithm = PasswordAlgorithm::create();
     }
 }

@@ -12,4 +12,6 @@ namespace MsgPhp\User\Password;
 interface PasswordInterface
 {
     public function getPassword(): string;
+
+    public function getPasswordAlgorithm(): PasswordAlgorithm;
 }
