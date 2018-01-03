@@ -9,16 +9,16 @@ namespace MsgPhp\User\Password;
  */
 trait PasswordProtectedTrait
 {
+    /** @var string */
     private $password;
-    private $passwordAlgorithm;
 
-    public function getPassword(): string
+    final public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function getPasswordAlgorithm(): PasswordAlgorithm
+    public function createPasswordAlgorithm(): PasswordAlgorithm
     {
-        return $this->passwordAlgorithm;
+        return PasswordAlgorithm::create();
     }
 }
