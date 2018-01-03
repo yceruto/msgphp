@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace MsgPhp\User\Entity\Credential;
 
 use MsgPhp\User\Credential\{CredentialInterface, NicknameCredentialTrait};
-use MsgPhp\User\Password\{PasswordAlgorithm, PasswordInterface, PasswordTrait};
+use MsgPhp\User\Password\{PasswordAlgorithm, PasswordProtectedInterface, PasswordProtectedTrait};
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-final class NicknamePassword implements CredentialInterface, PasswordInterface
+final class NicknamePassword implements CredentialInterface, PasswordProtectedInterface
 {
     use NicknameCredentialTrait;
-    use PasswordTrait;
+    use PasswordProtectedTrait;
 
     public function __construct(string $nickname, string $password)
     {

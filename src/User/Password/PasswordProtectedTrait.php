@@ -7,7 +7,7 @@ namespace MsgPhp\User\Password;
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-trait PasswordTrait
+trait PasswordProtectedTrait
 {
     private $password;
     private $passwordAlgorithm;

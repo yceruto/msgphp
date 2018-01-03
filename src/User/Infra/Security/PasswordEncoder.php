@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Infra\Security;
 
-use MsgPhp\User\Password\PasswordEncoderInterface;
+use MsgPhp\User\Password\{PasswordAlgorithm, PasswordEncoderInterface};
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface as BasePasswordEncoder;
 
 /**
@@ -21,13 +21,15 @@ final class PasswordEncoder implements PasswordEncoderInterface
         $this->salt = $salt ?? bin2hex(random_bytes(16));
     }
 
-    public function encode(string $plainPassword): string
+    public function encode(string $plainPassword, PasswordAlgorithm $algorithm = null): string
     {
+        // @fixme $algorithm arg
         return $this->encoder->encodePassword($plainPassword, $this->salt);
     }
 
-    public function isValid(string $encodedPassword, string $plainPassword): bool
+    public function isValid(string $encodedPassword, string $plainPassword, PasswordAlgorithm $algorithm = null): bool
     {
+        // @fixme $algorithm arg
         return $this->encoder->isPasswordValid($encodedPassword, $plainPassword, $this->salt);
     }
 }

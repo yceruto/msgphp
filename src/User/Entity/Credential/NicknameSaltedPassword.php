@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MsgPhp\User\Entity\Credential;
 
 use MsgPhp\User\Credential\{CredentialInterface, NicknameCredentialTrait};
-use MsgPhp\User\Password\{PasswordAlgorithm, PasswordInterface, PasswordTrait};
+use MsgPhp\User\Password\{PasswordAlgorithm, PasswordProtectedInterface, PasswordProtectedTrait};
 
 /**
  * Note one should prefer a saltless password implementation by default, i.e. {@see NicknamePassword}. The salted
@@ -13,10 +13,10 @@ use MsgPhp\User\Password\{PasswordAlgorithm, PasswordInterface, PasswordTrait};
  *
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-final class NicknameSaltedPassword implements CredentialInterface, PasswordInterface
+final class NicknameSaltedPassword implements CredentialInterface, PasswordProtectedInterface
 {
     use NicknameCredentialTrait;
-    use PasswordTrait;
+    use PasswordProtectedTrait;
 
     private $passwordSalt;
 

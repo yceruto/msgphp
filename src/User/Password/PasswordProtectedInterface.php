@@ -9,7 +9,7 @@ namespace MsgPhp\User\Password;
  *
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-interface PasswordInterface
+interface PasswordProtectedInterface
 {
     public function getPassword(): string;
 
