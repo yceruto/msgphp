@@ -9,7 +9,7 @@ namespace MsgPhp\User\Password;
  */
 interface PasswordEncoderInterface
 {
-    public function encode(string $plainPassword): string;
+    public function encode(string $plainPassword, PasswordAlgorithm $algorithm = null): string;
 
-    public function isValid(string $encodedPassword, string $plainPassword): bool;
+    public function isValid(string $encodedPassword, string $plainPassword, PasswordAlgorithm $algorithm = null): bool;
 }
