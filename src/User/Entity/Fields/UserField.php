@@ -12,6 +12,7 @@ use MsgPhp\User\UserIdInterface;
  */
 trait UserField
 {
+    /** @var User */
     private $user;
 
     public function getUser(): User
@@ -21,6 +22,6 @@ trait UserField
 
     final public function getUserId(): UserIdInterface
     {
-        return $this->getUser()->getId();
+        return $this->user->getId();
     }
 }
