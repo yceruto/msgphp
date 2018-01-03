@@ -41,9 +41,6 @@ final class CanBeEnabledOrDisabledTest extends TestCase
         yield [false];
     }
 
-    /**
-     * @return object
-     */
     private function getObject($value)
     {
         return new class($value) {

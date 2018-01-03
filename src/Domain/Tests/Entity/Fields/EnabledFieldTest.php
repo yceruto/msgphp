@@ -25,9 +25,6 @@ final class EnabledFieldTest extends TestCase
         yield [false];
     }
 
-    /**
-     * @return object
-     */
     private function getObject($value)
     {
         return new class($value) {

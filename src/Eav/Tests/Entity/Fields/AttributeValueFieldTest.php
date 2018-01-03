@@ -35,9 +35,6 @@ final class AttributeValueFieldTest extends TestCase
         $this->assertSame($value->getValue(), $object->getValue());
     }
 
-    /**
-     * @return object
-     */
     private function getObject($value)
     {
         return new class($value) {
