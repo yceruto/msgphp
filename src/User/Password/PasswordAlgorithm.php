@@ -9,7 +9,7 @@ namespace MsgPhp\User\Password;
  */
 final class PasswordAlgorithm
 {
-    private const DEFAULT_LEGACY_TYPE = 'sha512';
+    public const DEFAULT_LEGACY = 'sha512';
 
     /** @var int|string */
     public $type;
@@ -20,11 +20,11 @@ final class PasswordAlgorithm
     /** @var bool */
     public $legacy;
 
-    /** @var PasswordSalt|null */
-    public $salt;
-
     /** @var bool|null */
     public $encodeBase64;
+
+    /** @var PasswordSalt|null */
+    public $salt;
 
     /**
      * @see https://secure.php.net/manual/en/function.password-hash.php
@@ -40,12 +40,15 @@ final class PasswordAlgorithm
     /**
      * @see https://secure.php.net/manual/en/function.hash.php
      */
-    public static function createLegacy(string $type = self::DEFAULT_LEGACY_TYPE): self
+    public static function createLegacy(string $type = self::DEFAULT_LEGACY): self
     {
-        return new self($type, true);
+        $instance = new self($type, true);
+        $instance->encodeBase64 = false;
+
+        return $instance;
     }
 
-    public static function createLegacyBase64Encoded(string $type = self::DEFAULT_LEGACY_TYPE): self
+    public static function createLegacyBase64Encoded(string $type = self::DEFAULT_LEGACY): self
     {
         $instance = self::createLegacy($type);
         $instance->encodeBase64 = true;
@@ -53,7 +56,7 @@ final class PasswordAlgorithm
         return $instance;
     }
 
-    public static function createLegacyWithSalt(PasswordSalt $salt, bool $encodeBase64 = true, string $type = self::DEFAULT_LEGACY_TYPE): self
+    public static function createLegacySalted(PasswordSalt $salt, bool $encodeBase64 = true, string $type = self::DEFAULT_LEGACY): self
     {
         $instance = $encodeBase64 ? self::createLegacyBase64Encoded($type) : self::createLegacy($type);
         $instance->salt = $salt;

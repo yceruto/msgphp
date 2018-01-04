@@ -10,13 +10,13 @@ namespace MsgPhp\User\Password;
 final class PasswordSalt
 {
     public $token;
-    public $format;
     public $iterations;
+    public $format;
 
-    public function __construct(string $token, string $format = '%s{%s}', int $iterations = 5000)
+    public function __construct(string $token, int $iterations = 5000, string $format = '%s{%s}')
     {
         $this->token = $token;
-        $this->format = $format;
         $this->iterations = $iterations;
+        $this->format = $format;
     }
 }

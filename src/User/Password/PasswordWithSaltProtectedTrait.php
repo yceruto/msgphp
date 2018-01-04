@@ -21,6 +21,6 @@ trait PasswordWithSaltProtectedTrait
 
     public function createPasswordAlgorithm(): PasswordAlgorithm
     {
-        return PasswordAlgorithm::createLegacyWithSalt(new PasswordSalt($this->passwordSalt));
+        return PasswordAlgorithm::createLegacySalted(new PasswordSalt($this->passwordSalt));
     }
 }

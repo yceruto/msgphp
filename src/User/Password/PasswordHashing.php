@@ -22,29 +22,34 @@ final class PasswordHashing implements PasswordHashingInterface
     {
         $algorithm = $algorithm ?? $this->defaultAlgorithm;
 
-        if ($algorithm->legacy) {
-            if ($this->deprecateLegacyApi) {
-                @trigger_error(sprintf('Using PHP\'s legacy password API is deprecated and should be avoided. Create a non-legacy algorithm using "%s::create()" instead.', PasswordAlgorithm::class), \E_USER_DEPRECATED);
-            }
-
-            if (null !== $algorithm->salt) {
-                if (2 !== ($c = substr_count($algorithm->salt->format, '%s'))) {
-                    throw new \LogicException(sprintf('Password salt format should have exactly 2 value placeholders (%d found).', $c));
-                }
-
-                $plainPassword = sprintf($algorithm->salt->format, $plainPassword, $algorithm->salt->token);
-            }
-
-            $hash = hash($algorithm->type, $plainPassword, true);
-
-            for ($i = 1; $i < $algorithm->salt->iterations; ++$i) {
-                $hash = hash($algorithm->type, $hash.$plainPassword, true);
-            }
-
-            return $algorithm->encodeBase64 ? base64_encode($hash) : bin2hex($hash);
+        if (!$algorithm->legacy) {
+            return password_hash($plainPassword, $algorithm->type, $algorithm->options);
         }
 
-        return password_hash($plainPassword, $algorithm->type, $algorithm->options);
+        if ($this->deprecateLegacyApi) {
+            @trigger_error(sprintf('Using PHP\'s legacy password API is deprecated and should be avoided. Create a non-legacy algorithm using "%s::create()" instead.', PasswordAlgorithm::class), \E_USER_DEPRECATED);
+        }
+
+        if (null !== $algorithm->salt) {
+            if (1 > $algorithm->salt->iterations) {
+                throw new \LogicException(sprintf('No. of password salt iterations must be 1 or higher, got %d.', $algorithm->salt->iterations));
+            }
+
+            if (2 !== ($c = substr_count($algorithm->salt->format, '%s'))) {
+                throw new \LogicException(sprintf('Password salt format should have exactly 2 value placeholders, found %d.', $c));
+            }
+
+            $salted = sprintf($algorithm->salt->format, $plainPassword, $algorithm->salt->token);
+            $hash = hash($algorithm->type, $salted, true);
+
+            for ($i = 1; $i < $algorithm->salt->iterations; ++$i) {
+                $hash = hash($algorithm->type, $hash.$salted, true);
+            }
+        } else {
+            $hash = hash($algorithm->type, $plainPassword, true);
+        }
+
+        return $algorithm->encodeBase64 ? base64_encode($hash) : bin2hex($hash);
     }
 
     public function isValid(string $hashedPassword, string $plainPassword, PasswordAlgorithm $algorithm = null): bool
