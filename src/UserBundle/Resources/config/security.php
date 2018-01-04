@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use MsgPhp\User\Password\PasswordEncoderInterface;
+use MsgPhp\User\Password\PasswordHashingInterface;
 use MsgPhp\User\Infra\Security\{PasswordEncoder, SecurityUser, SecurityUserFactory, SecurityUserProvider};
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface as SymfonyPasswordEncoderInterface;
@@ -19,7 +19,7 @@ return function (ContainerConfigurator $container): void {
                     ->factory([ref('security.encoder_factory'), 'getEncoder'])
                     ->args([SecurityUser::class]),
             ])
-        ->alias(PasswordEncoderInterface::class, PasswordEncoder::class)
+        ->alias(PasswordHashingInterface::class, PasswordEncoder::class)
         ->set(SecurityUserFactory::class)
         ->set(SecurityUserProvider::class)
     ;

@@ -7,9 +7,9 @@ namespace MsgPhp\User\Password;
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-interface PasswordEncoderInterface
+interface PasswordHashingInterface
 {
-    public function encode(string $plainPassword, PasswordAlgorithm $algorithm = null): string;
+    public function hash(string $plainPassword, PasswordAlgorithm $algorithm = null): string;
 
     public function isValid(string $encodedPassword, string $plainPassword, PasswordAlgorithm $algorithm = null): bool;
 }

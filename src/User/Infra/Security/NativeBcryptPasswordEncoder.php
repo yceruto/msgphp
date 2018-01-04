@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace MsgPhp\User\Infra\Security;
 
 use MsgPhp\User\Password\PasswordAlgorithm;
-use MsgPhp\User\Password\PasswordEncoderInterface;
+use MsgPhp\User\Password\PasswordHashingInterface;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  *
  * @todo remove in favor for Password\PasswordEncoder
  */
-final class NativeBcryptPasswordEncoder implements PasswordEncoderInterface
+final class NativeBcryptPasswordEncoder implements PasswordHashingInterface
 {
     private $cost;
 
@@ -21,7 +21,7 @@ final class NativeBcryptPasswordEncoder implements PasswordEncoderInterface
         $this->cost = $cost;
     }
 
-    public function encode(string $plainPassword, PasswordAlgorithm $algorithm = null): string
+    public function hash(string $plainPassword, PasswordAlgorithm $algorithm = null): string
     {
         return password_hash($plainPassword, \PASSWORD_BCRYPT, ['cost' => $this->cost]);
     }

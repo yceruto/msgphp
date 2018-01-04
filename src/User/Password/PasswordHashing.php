@@ -7,7 +7,7 @@ namespace MsgPhp\User\Password;
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-final class PasswordEncoder implements PasswordEncoderInterface
+final class PasswordHashing implements PasswordHashingInterface
 {
     private $defaultAlgorithm;
     private $deprecateLegacyApi;
@@ -18,7 +18,7 @@ final class PasswordEncoder implements PasswordEncoderInterface
         $this->deprecateLegacyApi = $deprecateLegacyApi;
     }
 
-    public function encode(string $plainPassword, PasswordAlgorithm $algorithm = null): string
+    public function hash(string $plainPassword, PasswordAlgorithm $algorithm = null): string
     {
         $algorithm = $algorithm ?? $this->defaultAlgorithm ?? ($this->defaultAlgorithm = PasswordAlgorithm::create());
 
@@ -42,7 +42,7 @@ final class PasswordEncoder implements PasswordEncoderInterface
         $algorithm = $algorithm ?? $this->defaultAlgorithm ?? ($this->defaultAlgorithm = PasswordAlgorithm::create());
 
         return $algorithm->legacy
-            ? hash_equals($encodedPassword, $this->encode($plainPassword, $algorithm))
+            ? hash_equals($encodedPassword, $this->hash($plainPassword, $algorithm))
             : password_verify($plainPassword, $encodedPassword);
     }
 }

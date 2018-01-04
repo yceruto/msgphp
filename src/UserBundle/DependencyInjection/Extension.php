@@ -16,7 +16,7 @@ use MsgPhp\User\Infra\Doctrine\Repository\{PendingUserRepository, UserAttributeV
 use MsgPhp\User\Infra\Doctrine\SqlEmailLookup;
 use MsgPhp\User\Infra\Doctrine\Type\UserIdType;
 use MsgPhp\User\Infra\Security\NativeBcryptPasswordEncoder;
-use MsgPhp\User\Password\PasswordEncoderInterface;
+use MsgPhp\User\Password\PasswordHashingInterface;
 use MsgPhp\User\Repository\UserRepositoryInterface;
 use MsgPhp\User\UserIdInterface;
 use Ramsey\Uuid\Uuid;
@@ -95,9 +95,9 @@ final class Extension extends BaseExtension implements PrependExtensionInterface
             $loader->load('twig.php');
         }
 
-        if (!$container->has(PasswordEncoderInterface::class)) {
+        if (!$container->has(PasswordHashingInterface::class)) {
             $container->register(NativeBcryptPasswordEncoder::class);
-            $container->setAlias(PasswordEncoderInterface::class, new Alias(NativeBcryptPasswordEncoder::class, false));
+            $container->setAlias(PasswordHashingInterface::class, new Alias(NativeBcryptPasswordEncoder::class, false));
         }
     }
 
