@@ -12,7 +12,7 @@ final class PasswordHashing implements PasswordHashingInterface
     private $defaultAlgorithm;
     private $deprecateLegacyApi;
 
-    public function __construct(PasswordAlgorithm $defaultAlgorithm = null, $deprecateLegacyApi = true)
+    public function __construct(PasswordAlgorithm $defaultAlgorithm = null, bool $deprecateLegacyApi = true)
     {
         $this->defaultAlgorithm = $defaultAlgorithm ?? PasswordAlgorithm::create();
         $this->deprecateLegacyApi = $deprecateLegacyApi;

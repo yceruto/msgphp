@@ -53,7 +53,7 @@ final class PasswordAlgorithm
         return $instance;
     }
 
-    public static function createLegacyWithSalt(PasswordSalt $salt, bool $encodeBase64 = false, string $type = self::DEFAULT_LEGACY_TYPE): self
+    public static function createLegacyWithSalt(PasswordSalt $salt, bool $encodeBase64 = true, string $type = self::DEFAULT_LEGACY_TYPE): self
     {
         $instance = $encodeBase64 ? self::createLegacyBase64Encoded($type) : self::createLegacy($type);
         $instance->salt = $salt;
