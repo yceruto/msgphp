@@ -14,13 +14,13 @@ final class PasswordHashing implements PasswordHashingInterface
 
     public function __construct(PasswordAlgorithm $defaultAlgorithm = null, $deprecateLegacyApi = true)
     {
-        $this->defaultAlgorithm = $defaultAlgorithm;
+        $this->defaultAlgorithm = $defaultAlgorithm ?? PasswordAlgorithm::create();
         $this->deprecateLegacyApi = $deprecateLegacyApi;
     }
 
     public function hash(string $plainPassword, PasswordAlgorithm $algorithm = null): string
     {
-        $algorithm = $algorithm ?? $this->defaultAlgorithm ?? ($this->defaultAlgorithm = PasswordAlgorithm::create());
+        $algorithm = $algorithm ?? $this->defaultAlgorithm;
 
         if ($algorithm->legacy) {
             if ($this->deprecateLegacyApi) {
@@ -39,7 +39,7 @@ final class PasswordHashing implements PasswordHashingInterface
 
     public function isValid(string $encodedPassword, string $plainPassword, PasswordAlgorithm $algorithm = null): bool
     {
-        $algorithm = $algorithm ?? $this->defaultAlgorithm ?? ($this->defaultAlgorithm = PasswordAlgorithm::create());
+        $algorithm = $algorithm ?? $this->defaultAlgorithm;
 
         return $algorithm->legacy
             ? hash_equals($encodedPassword, $this->hash($plainPassword, $algorithm))

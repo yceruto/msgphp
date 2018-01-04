@@ -15,8 +15,7 @@ use MsgPhp\User\Infra\Console\Command\{AddUserRoleCommand, CreatePendingUserComm
 use MsgPhp\User\Infra\Doctrine\Repository\{PendingUserRepository, UserAttributeValueRepository, UserRepository, UserRoleRepository, UserSecondaryEmailRepository};
 use MsgPhp\User\Infra\Doctrine\SqlEmailLookup;
 use MsgPhp\User\Infra\Doctrine\Type\UserIdType;
-use MsgPhp\User\Infra\Security\NativeBcryptPasswordEncoder;
-use MsgPhp\User\Password\PasswordHashingInterface;
+use MsgPhp\User\Password\{PasswordHashing, PasswordHashingInterface};
 use MsgPhp\User\Repository\UserRepositoryInterface;
 use MsgPhp\User\UserIdInterface;
 use Ramsey\Uuid\Uuid;
@@ -96,8 +95,8 @@ final class Extension extends BaseExtension implements PrependExtensionInterface
         }
 
         if (!$container->has(PasswordHashingInterface::class)) {
-            $container->register(NativeBcryptPasswordEncoder::class);
-            $container->setAlias(PasswordHashingInterface::class, new Alias(NativeBcryptPasswordEncoder::class, false));
+            $container->register(PasswordHashing::class);
+            $container->setAlias(PasswordHashingInterface::class, new Alias(PasswordHashing::class, false));
         }
     }
 
