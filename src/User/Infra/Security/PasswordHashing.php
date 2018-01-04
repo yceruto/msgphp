@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface as BasePass
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-final class PasswordEncoder implements PasswordHashingInterface
+final class PasswordHashing implements PasswordHashingInterface
 {
     private $encoder;
     private $salt;
