@@ -28,14 +28,20 @@ final class PasswordHashing implements PasswordHashingInterface
             }
 
             if (null !== $algorithm->salt) {
-                if (2 !== ($c = substr_count($algorithm->saltFormat, '%s'))) {
+                if (2 !== ($c = substr_count($algorithm->salt->format, '%s'))) {
                     throw new \LogicException(sprintf('Password salt format should have exactly 2 value placeholders (%d found).', $c));
                 }
 
-                $plainPassword = sprintf($algorithm->saltFormat, $plainPassword, $algorithm->salt);
+                $plainPassword = sprintf($algorithm->salt->format, $plainPassword, $algorithm->salt->token);
             }
 
-            return hash($algorithm->type, $plainPassword);
+            $hash = hash($algorithm->type, $plainPassword, true);
+
+            for ($i = 1; $i < $algorithm->salt->iterations; ++$i) {
+                $hash = hash($algorithm->type, $hash.$plainPassword, true);
+            }
+
+            return $algorithm->encodeBase64 ? base64_encode($hash) : bin2hex($hash);
         }
 
         return password_hash($plainPassword, $algorithm->type, $algorithm->options);
