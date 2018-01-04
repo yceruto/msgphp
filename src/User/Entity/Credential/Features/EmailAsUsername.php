@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace MsgPhp\User\Credential;
+namespace MsgPhp\User\Entity\Credential\Features;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-trait EmailCredentialTrait
+trait EmailAsUsername
 {
+    /** @var string */
     private $email;
 
     final public function getEmail(): string

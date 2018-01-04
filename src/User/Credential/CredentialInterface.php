@@ -6,6 +6,8 @@ namespace MsgPhp\User\Credential;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
+ *
+ * @todo move to root
  */
 interface CredentialInterface
 {

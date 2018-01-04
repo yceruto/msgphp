@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace MsgPhp\User\Entity\Credential;
 
-use MsgPhp\User\Credential\{CredentialInterface, NicknameCredentialTrait};
+use MsgPhp\User\Credential\CredentialInterface;
+use MsgPhp\User\Entity\Credential\Features\NicknameAsUsername;
 use MsgPhp\User\Password\{PasswordProtectedInterface, PasswordWithSaltProtectedTrait};
 
 /**
@@ -15,7 +16,7 @@ use MsgPhp\User\Password\{PasswordProtectedInterface, PasswordWithSaltProtectedT
  */
 final class NicknameSaltedPassword implements CredentialInterface, PasswordProtectedInterface
 {
-    use NicknameCredentialTrait;
+    use NicknameAsUsername;
     use PasswordWithSaltProtectedTrait;
 
     public function __construct(string $nickname, string $password, string $passwordSalt)
@@ -23,5 +24,20 @@ final class NicknameSaltedPassword implements CredentialInterface, PasswordProte
         $this->nickname = $nickname;
         $this->password = $password;
         $this->passwordSalt = $passwordSalt;
+    }
+
+    public function withNickname(string $nickname): self
+    {
+        return new self($nickname, $this->password, $this->passwordSalt);
+    }
+
+    public function withPassword(string $password): self
+    {
+        return new self($this->nickname, $password, $this->passwordSalt);
+    }
+
+    public function withPasswordSalt(string $passwordSalt): self
+    {
+        return new self($this->nickname, $this->password, $passwordSalt);
     }
 }
