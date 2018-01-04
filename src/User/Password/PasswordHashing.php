@@ -47,12 +47,12 @@ final class PasswordHashing implements PasswordHashingInterface
         return password_hash($plainPassword, $algorithm->type, $algorithm->options);
     }
 
-    public function isValid(string $encodedPassword, string $plainPassword, PasswordAlgorithm $algorithm = null): bool
+    public function isValid(string $hashedPassword, string $plainPassword, PasswordAlgorithm $algorithm = null): bool
     {
         $algorithm = $algorithm ?? $this->defaultAlgorithm;
 
         return $algorithm->legacy
-            ? hash_equals($encodedPassword, $this->hash($plainPassword, $algorithm))
-            : password_verify($plainPassword, $encodedPassword);
+            ? hash_equals($hashedPassword, $this->hash($plainPassword, $algorithm))
+            : password_verify($plainPassword, $hashedPassword);
     }
 }

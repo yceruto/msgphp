@@ -5,31 +5,32 @@ declare(strict_types=1);
 namespace MsgPhp\User\Infra\Security;
 
 use MsgPhp\User\Password\{PasswordAlgorithm, PasswordHashingInterface};
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface as BasePasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface as SymfonyPasswordHashingInterface;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
 final class PasswordHashing implements PasswordHashingInterface
 {
-    private $encoder;
-    private $salt;
+    private $hashing;
 
-    public function __construct(BasePasswordEncoder $encoder, string $salt = null)
+    public function __construct(SymfonyPasswordHashingInterface $hashing)
     {
-        $this->encoder = $encoder;
-        $this->salt = $salt ?? bin2hex(random_bytes(16));
+        $this->hashing = $hashing;
     }
 
     public function hash(string $plainPassword, PasswordAlgorithm $algorithm = null): string
     {
-        // @fixme $algorithm arg
-        return $this->encoder->encodePassword($plainPassword, $this->salt);
+        return $this->hashing->encodePassword($plainPassword, self::getSalt($algorithm));
     }
 
-    public function isValid(string $encodedPassword, string $plainPassword, PasswordAlgorithm $algorithm = null): bool
+    public function isValid(string $hashedPassword, string $plainPassword, PasswordAlgorithm $algorithm = null): bool
     {
-        // @fixme $algorithm arg
-        return $this->encoder->isPasswordValid($encodedPassword, $plainPassword, $this->salt);
+        return $this->hashing->isPasswordValid($hashedPassword, $plainPassword, self::getSalt($algorithm));
+    }
+
+    private static function getSalt(PasswordAlgorithm $algorithm = null): string
+    {
+        return null === $algorithm || null === $algorithm->salt ? bin2hex(random_bytes(16)) : $algorithm->salt->token;
     }
 }

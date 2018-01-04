@@ -11,5 +11,5 @@ interface PasswordHashingInterface
 {
     public function hash(string $plainPassword, PasswordAlgorithm $algorithm = null): string;
 
-    public function isValid(string $encodedPassword, string $plainPassword, PasswordAlgorithm $algorithm = null): bool;
+    public function isValid(string $hashedPassword, string $plainPassword, PasswordAlgorithm $algorithm = null): bool;
 }
