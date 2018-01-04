@@ -24,7 +24,7 @@ final class PasswordHashing implements PasswordHashingInterface
 
         if ($algorithm->legacy) {
             if ($this->deprecateLegacyApi) {
-                @trigger_error('Using PHP\'s legacy password API is deprecated and should be avoided.');
+                @trigger_error(sprintf('Using PHP\'s legacy password API is deprecated and should be avoided. Create a non-legacy algorithm using "%s::create()" instead.', PasswordAlgorithm::class), \E_USER_DEPRECATED);
             }
 
             if (null !== $algorithm->salt) {
