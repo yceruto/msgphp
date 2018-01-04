@@ -28,6 +28,10 @@ final class PasswordHashing implements PasswordHashingInterface
             }
 
             if (null !== $algorithm->salt) {
+                if (2 !== ($c = substr_count($algorithm->saltFormat, '%s'))) {
+                    throw new \LogicException(sprintf('Password salt format should have exactly 2 value placeholders (%d found).', $c));
+                }
+
                 $plainPassword = sprintf($algorithm->saltFormat, $plainPassword, $algorithm->salt);
             }
 

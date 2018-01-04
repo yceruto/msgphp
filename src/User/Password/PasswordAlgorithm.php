@@ -57,10 +57,6 @@ final class PasswordAlgorithm
 
     public static function createLegacyWithFormattedSalt(string $salt, string $format, string $type = self::DEFAULT_LEGACY_TYPE): self
     {
-        if (2 !== ($c = substr_count($format, '%s'))) {
-            throw new \LogicException(sprintf('Salt format should have exactly 2 value placeholders (%d found).', $c));
-        }
-
         $instance = self::createLegacyWithSalt($salt, $type);
         $instance->saltFormat = $format;
 
