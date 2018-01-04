@@ -9,7 +9,7 @@ use MsgPhp\Domain\EventBusInterface;
 use MsgPhp\User\Command\CreateUserCommand;
 use MsgPhp\User\Entity\User;
 use MsgPhp\User\Event\UserCreatedEvent;
-use MsgPhp\User\PasswordEncoderInterface;
+use MsgPhp\User\Password\PasswordEncoderInterface;
 use MsgPhp\User\Repository\UserRepositoryInterface;
 
 /**

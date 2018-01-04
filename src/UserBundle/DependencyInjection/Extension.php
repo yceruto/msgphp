@@ -16,7 +16,7 @@ use MsgPhp\User\Infra\Doctrine\Repository\{PendingUserRepository, UserAttributeV
 use MsgPhp\User\Infra\Doctrine\SqlEmailLookup;
 use MsgPhp\User\Infra\Doctrine\Type\UserIdType;
 use MsgPhp\User\Infra\Security\NativeBcryptPasswordEncoder;
-use MsgPhp\User\PasswordEncoderInterface;
+use MsgPhp\User\Password\PasswordEncoderInterface;
 use MsgPhp\User\Repository\UserRepositoryInterface;
 use MsgPhp\User\UserIdInterface;
 use Ramsey\Uuid\Uuid;
@@ -56,7 +56,7 @@ final class Extension extends BaseExtension implements PrependExtensionInterface
     {
         $loader = new PhpFileLoader($container, new FileLocator(dirname(__DIR__).'/Resources/config'));
         $config = $this->processConfiguration($this->getConfiguration($configs, $container), $configs);
-        $bundles = array_flip($container->getParameter('kernel.bundles'));
+        $bundles = ContainerHelper::getBundles($container);
         $classMapping = $config['class_mapping'];
 
         ContainerHelper::configureEntityFactory($container, $classMapping, [

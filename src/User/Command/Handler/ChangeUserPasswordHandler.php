@@ -7,7 +7,7 @@ namespace MsgPhp\User\Command\Handler;
 use MsgPhp\Domain\EventBusInterface;
 use MsgPhp\User\Command\ChangeUserPasswordCommand;
 use MsgPhp\User\Event\UserPasswordChangedEvent;
-use MsgPhp\User\PasswordEncoderInterface;
+use MsgPhp\User\Password\PasswordEncoderInterface;
 use MsgPhp\User\Repository\UserRepositoryInterface;
 
 /**
